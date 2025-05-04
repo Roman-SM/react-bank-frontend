@@ -42,17 +42,20 @@ export default function Component() {
   const handleSendTransaction = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:4000/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          senderEmail: states.user?.email,
-          recipientEmail: formData.email,
-          sum: formData.sum,
-        }),
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/send",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            senderEmail: states.user?.email,
+            recipientEmail: formData.email,
+            sum: formData.sum,
+          }),
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         dispatch({ type: REQUEST_ACTION_TYPE.RESET });

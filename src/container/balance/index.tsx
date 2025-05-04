@@ -79,12 +79,15 @@ export default function Component() {
 
   const getBalance = useCallback(async () => {
     try {
-      const res = await fetch("http://localhost:4000/balance", {
-        method: "GET",
-        headers: {
-          Authorization: `${states.user?.email}`,
-        },
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/balance",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${states.user?.email}`,
+          },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         dispatch({ type: REQUEST_ACTION_TYPE.RESET });
@@ -103,12 +106,15 @@ export default function Component() {
   const getTransactions = useCallback(async () => {
     dispatch({ type: REQUEST_ACTION_TYPE.PROGRESS });
     try {
-      const res = await fetch("http://localhost:4000/transactions-list", {
-        method: "GET",
-        headers: {
-          Authorization: `${states.user?.email}`,
-        },
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/transactions-list",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${states.user?.email}`,
+          },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         dispatch({

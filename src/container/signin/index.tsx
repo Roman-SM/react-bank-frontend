@@ -54,13 +54,16 @@ export default function Component() {
     e.preventDefault();
     if (validateAll()) {
       try {
-        const res = await fetch("http://localhost:4000/signin", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const res = await fetch(
+          "https://react-bank-backend-f5iu.onrender.com/signin",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
         const data = await res.json();
         if (res.ok) {
           dispatch({ type: REQUEST_ACTION_TYPE.RESET });

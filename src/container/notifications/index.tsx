@@ -44,12 +44,15 @@ export default function Component() {
   const getNotifications = useCallback(async () => {
     dispatch({ type: REQUEST_ACTION_TYPE.PROGRESS });
     try {
-      const res = await fetch("http://localhost:4000/notifications-list", {
-        method: "GET",
-        headers: {
-          Authorization: `${states.user?.email}`,
-        },
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/notifications-list",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${states.user?.email}`,
+          },
+        }
+      );
       const data = await res.json();
       if (res.ok) {
         dispatch({

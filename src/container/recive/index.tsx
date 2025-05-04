@@ -38,16 +38,19 @@ export default function Component() {
   const handleReciveCoinbase = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:4000/recive-coinbase", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sum: formData.sum,
-          email: states.user?.email,
-        }),
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/recive-coinbase",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sum: formData.sum,
+            email: states.user?.email,
+          }),
+        }
+      );
 
       const data = await res.json();
       if (res.ok) {
@@ -67,16 +70,19 @@ export default function Component() {
   const handleReciveStripe = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:4000/recive-stripe", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          sum: formData.sum,
-          email: states.user?.email,
-        }),
-      });
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/recive-stripe",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sum: formData.sum,
+            email: states.user?.email,
+          }),
+        }
+      );
 
       const data = await res.json();
       if (res.ok) {

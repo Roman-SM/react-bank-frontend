@@ -65,17 +65,20 @@ export default function Component() {
       e.preventDefault();
       if (validateAll()) {
         try {
-          const res = await fetch("http://localhost:4000/recovery-email", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: states.user?.email,
-              newEmail: formEmail.formData.email,
-              password: formEmail.formData.password,
-            }),
-          });
+          const res = await fetch(
+            "https://react-bank-backend-f5iu.onrender.com/recovery-email",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: states.user?.email,
+                newEmail: formEmail.formData.email,
+                password: formEmail.formData.password,
+              }),
+            }
+          );
 
           const data = await res.json();
           if (res.ok) {
@@ -108,17 +111,20 @@ export default function Component() {
       e.preventDefault();
       if (validateAll()) {
         try {
-          const res = await fetch("http://localhost:4000/recovery-password", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: states.user?.email,
-              oldPassword: formPassword.formData.oldPassword,
-              newPassword: formPassword.formData.newPassword,
-            }),
-          });
+          const res = await fetch(
+            "https://react-bank-backend-f5iu.onrender.com/recovery-password",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: states.user?.email,
+                oldPassword: formPassword.formData.oldPassword,
+                newPassword: formPassword.formData.newPassword,
+              }),
+            }
+          );
 
           const data = await res.json();
           if (res.ok) {

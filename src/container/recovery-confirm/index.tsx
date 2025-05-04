@@ -50,16 +50,19 @@ export default function Component() {
     e.preventDefault();
     if (validateAll()) {
       try {
-        const res = await fetch("http://localhost:4000/recovery-confirm", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            code: Number(formData.code),
-            password: formData.newPassword,
-          }),
-        });
+        const res = await fetch(
+          "https://react-bank-backend-f5iu.onrender.com/recovery-confirm",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              code: Number(formData.code),
+              password: formData.newPassword,
+            }),
+          }
+        );
         const data = await res.json();
 
         if (res.ok) {
