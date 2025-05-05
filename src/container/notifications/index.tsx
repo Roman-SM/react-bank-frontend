@@ -55,6 +55,7 @@ export default function Component() {
       );
       const data = await res.json();
       if (res.ok) {
+        console.log("notifications data", data);
         dispatch({
           type: REQUEST_ACTION_TYPE.SUCCESS,
           payload: convertData(data),

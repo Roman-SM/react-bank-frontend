@@ -8,7 +8,7 @@ import receive from "./balance-receive.svg";
 import send from "./balance-send.svg";
 import TransactionsList from "../../component/transactions-list";
 import { useAuth } from "../../util/useAuth";
-import { useEffect, useState, Fragment, useReducer } from "react";
+import { useEffect, useState, Fragment, useReducer, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Alert, Skeleton } from "../../component/load";
 import {
@@ -77,67 +77,70 @@ export default function Component() {
     document.title = "Balance";
   }, []);
 
-  useEffect(() => {
-    const getBalance = async () => {
-      try {
-        const res = await fetch(
-          "https://react-bank-backend-f5iu.onrender.com/balance",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `${states.user?.email}`,
-            },
-          }
-        );
-        const data = await res.json();
-        if (res.ok) {
-          dispatch({ type: REQUEST_ACTION_TYPE.RESET });
-          setBalance(data.balance.toFixed(2));
-        } else {
-          dispatch({ type: REQUEST_ACTION_TYPE.ERROR, payload: data.message });
+  const getBalance = useCallback(async () => {
+    try {
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/balance",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${states.user?.email}`,
+          },
         }
-      } catch (error: any) {
-        dispatch({
-          type: REQUEST_ACTION_TYPE.ERROR,
-          payload: error.message,
-        });
+      );
+      const data = await res.json();
+      if (res.ok) {
+        dispatch({ type: REQUEST_ACTION_TYPE.RESET });
+        setBalance(data.balance.toFixed(2));
+      } else {
+        dispatch({ type: REQUEST_ACTION_TYPE.ERROR, payload: data.message });
       }
-    };
-    getBalance();
+    } catch (error: any) {
+      dispatch({
+        type: REQUEST_ACTION_TYPE.ERROR,
+        payload: error.message,
+      });
+    }
+  }, [states.user?.email]);
+
+  const getTransactions = useCallback(async () => {
+    dispatch({ type: REQUEST_ACTION_TYPE.PROGRESS });
+    try {
+      const res = await fetch(
+        "https://react-bank-backend-f5iu.onrender.com/transactions-list",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${states.user?.email}`,
+          },
+        }
+      );
+      const data = await res.json();
+      if (res.ok) {
+        console.log("transactions data", data);
+
+        dispatch({
+          type: REQUEST_ACTION_TYPE.SUCCESS,
+          payload: convertData(data),
+        });
+      } else {
+        dispatch({ type: REQUEST_ACTION_TYPE.ERROR, payload: data.message });
+      }
+    } catch (error: any) {
+      dispatch({
+        type: REQUEST_ACTION_TYPE.ERROR,
+        payload: error.message,
+      });
+    }
   }, [states.user?.email]);
 
   useEffect(() => {
-    if (!states.user?.email) return;
-    const getTransactions = async () => {
-      dispatch({ type: REQUEST_ACTION_TYPE.PROGRESS });
-      try {
-        const res = await fetch(
-          "https://react-bank-backend-f5iu.onrender.com/transactions-list",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `${states.user?.email}`,
-            },
-          }
-        );
-        const data = await res.json();
-        if (res.ok) {
-          dispatch({
-            type: REQUEST_ACTION_TYPE.SUCCESS,
-            payload: convertData(data),
-          });
-        } else {
-          dispatch({ type: REQUEST_ACTION_TYPE.ERROR, payload: data.message });
-        }
-      } catch (error: any) {
-        dispatch({
-          type: REQUEST_ACTION_TYPE.ERROR,
-          payload: error.message,
-        });
-      }
-    };
+    getBalance();
+  }, [getBalance]);
+
+  useEffect(() => {
     getTransactions();
-  }, [states.user?.email]);
+  }, [getTransactions]);
 
   return (
     <Page variant="white">
