@@ -90,7 +90,7 @@ export default function Component() {
       {state.status === REQUEST_ACTION_TYPE.SUCCESS && (
         <div className="notifications-list-scroll">
           {state.data.isEmpty ? (
-            <Alert message="Список сповіщень пустий" />
+            <Alert message="The notification list is empty" />
           ) : (
             state.data.list.map((item: any) => (
               <Fragment key={item.id}>

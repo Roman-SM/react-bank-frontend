@@ -158,7 +158,7 @@ export default function Component() {
       {state.status === REQUEST_ACTION_TYPE.SUCCESS && state.data && (
         <div className="balance-transactions-list-scroll">
           {state.data.isEmpty ? (
-            <Alert message="Список транзакцій пустий" />
+            <Alert message="The transaction list is empty" />
           ) : (
             state.data.list?.map((item: any) => (
               <Link
