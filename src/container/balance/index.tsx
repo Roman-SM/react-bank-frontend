@@ -90,7 +90,6 @@ export default function Component() {
       );
       const data = await res.json();
       if (res.ok) {
-        dispatch({ type: REQUEST_ACTION_TYPE.RESET });
         setBalance(data.balance.toFixed(2));
       } else {
         dispatch({ type: REQUEST_ACTION_TYPE.ERROR, payload: data.message });
@@ -117,8 +116,6 @@ export default function Component() {
       );
       const data = await res.json();
       if (res.ok) {
-        console.log("transactions data", data);
-        console.log("transactions data", convertData(data));
         dispatch({
           type: REQUEST_ACTION_TYPE.SUCCESS,
           payload: convertData(data),
@@ -158,12 +155,12 @@ export default function Component() {
           <Skeleton />
         </Fragment>
       )}
-      {state.status === REQUEST_ACTION_TYPE.SUCCESS && (
+      {state.status === REQUEST_ACTION_TYPE.SUCCESS && state.data && (
         <div className="balance-transactions-list-scroll">
           {state.data.isEmpty ? (
             <Alert message="Список транзакцій пустий" />
           ) : (
-            state.data.list.map((item: any) => (
+            state.data.list?.map((item: any) => (
               <Link
                 to={`/transaction/${item.id}`}
                 key={item.id}
