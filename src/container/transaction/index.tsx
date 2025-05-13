@@ -37,7 +37,7 @@ export default function Component() {
     dispatch({ type: REQUEST_ACTION_TYPE.PROGRESS });
     try {
       const res = await fetch(
-        `https://react-bank-backend-f5iu.onrender.com/transaction-info${transactionId}`,
+        `https://react-bank-backend-f5iu.onrender.com/transaction-info/${transactionId}`,
         {
           method: "GET",
         }
