@@ -26,7 +26,7 @@ export default function NotificationsPage() {
       {state.status === REQUEST_ACTION_TYPE.SUCCESS && (
         <div className="notifications-list-scroll">
           {state.data.isEmpty ? (
-            <Alert message="Список сповіщень пустий" />
+            <Alert message="The notification list is empty" />
           ) : (
             state.data.list.map((item: any) => (
               <Link
@@ -36,9 +36,6 @@ export default function NotificationsPage() {
               >
                 <Notification {...item} />
               </Link>
-              // <Fragment key={item.id}>
-              //   <Notification {...item} />
-              // </Fragment>
             ))
           )}
         </div>
