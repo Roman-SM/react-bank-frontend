@@ -1,1 +1,1 @@
-export const backendBaseUrl = "http://localhost:4000";
+export const backendBaseUrl = "https://react-bank-backend-f5iu.onrender.com";
