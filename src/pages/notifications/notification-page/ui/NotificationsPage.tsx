@@ -26,7 +26,7 @@ export default function NotificationsPage() {
       {state.status === REQUEST_ACTION_TYPE.SUCCESS && (
         <div className="notifications-list-scroll">
           {state.data.isEmpty ? (
-            <Alert message="The notification list is empty" />
+            <Alert message="Список сповіщень пустий" />
           ) : (
             state.data.list.map((item: any) => (
               <Link

@@ -92,7 +92,7 @@ export default function PaymentForm({ modalOpen }: ConfirmProps) {
         name={PaymentFormData.name}
         value={formData.sum}
         onChange={handleChange}
-        placeholder={PaymentFormData.placeholder.placeholderSum}
+        placeholder={PaymentFormData.placeholder.placeholderCode}
         error={errors.sum}
       />
       <Divider variant="big" />
